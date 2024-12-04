@@ -7,8 +7,9 @@ cd public
 python3 -m http.server 8888
 ```
 
-## Rendre main.sh exécutable
+## Rendre *.sh exécutable
 
 ```bash
 chmod +x main.sh
+chmod +x test.sh
 ```
