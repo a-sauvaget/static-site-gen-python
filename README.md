@@ -1,4 +1,4 @@
-# Génératur de site statique - Python
+# Générateur de site statique - Python
 
 ## Démarrer un serveur Web avec Python
 
