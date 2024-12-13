@@ -1,4 +1,7 @@
 import re
+from htmlnode import HTMLNode, ParentNode, LeafNode
+from textnode import TextNode, TextType, text_node_to_html_node
+from inline_markdown import text_to_textnodes
 
 def markdown_to_blocks(markdown: str) -> list:
     '''Convert raw mardown string (full document) into a list of block strings.'''
@@ -47,3 +50,12 @@ def block_to_block_type(block: str) -> str:
                 expected += 1
         return "ordered_list"
     return "paragraph"
+
+def markdown_to_html_node(markdown: str) -> HTMLNode:
+    '''Convert a full markdown document into a single parent HTMLNode'''
+    markdown_blocks = markdown_to_blocks(markdown)
+
+    for block in markdown_blocks:
+        block_type = block_to_block_type(block)
+
+    pass

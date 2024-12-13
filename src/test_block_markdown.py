@@ -1,7 +1,8 @@
 import unittest
 from block_markdown import (
     markdown_to_blocks,
-    block_to_block_type
+    block_to_block_type,
+    markdown_to_html_node,
 )
 
 
@@ -62,6 +63,22 @@ This is the same paragraph on a new line
         self.assertEqual(block_to_block_type(block), "ordered_list")
         block = "paragraph"
         self.assertEqual(block_to_block_type(block), "paragraph")
+
+    def test_markdownn_to_html(self):
+        md = """
+# Main title
+
+This is **bolded** paragraph
+
+## Title
+
+This is another paragraph with *italic* text and `code` here
+This is the same paragraph on a new line
+
+* This is a list
+* with items
+"""
+        markdown_to_html_node(md)
 
 
 if __name__ == "__main__":
