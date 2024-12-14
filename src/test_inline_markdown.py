@@ -99,12 +99,12 @@ class TestInlineMarkdown(unittest.TestCase):
 
     def test_extract_markdown_links(self):
         matches = extract_markdown_links(
-            "This is text with a [link](https://boot.dev) and [another link](https://blog.boot.dev)"
+            "This is text with a [link](https://google.com) and [another link](https://blog.google.com)"
         )
         self.assertListEqual(
             [
-                ("link", "https://boot.dev"),
-                ("another link", "https://blog.boot.dev"),
+                ("link", "https://google.com"),
+                ("another link", "https://blog.google.com"),
             ],
             matches,
         )
@@ -156,16 +156,16 @@ class TestInlineMarkdown(unittest.TestCase):
 
     def test_split_links(self):
         node = TextNode(
-            "This is text with a [link](https://boot.dev) and [another link](https://blog.boot.dev) with text that follows",
+            "This is text with a [link](https://google.com) and [another link](https://blog.google.com) with text that follows",
             TextType.TEXT,
         )
         new_nodes = split_nodes_link([node])
         self.assertListEqual(
             [
                 TextNode("This is text with a ", TextType.TEXT),
-                TextNode("link", TextType.LINK, "https://boot.dev"),
+                TextNode("link", TextType.LINK, "https://google.com"),
                 TextNode(" and ", TextType.TEXT),
-                TextNode("another link", TextType.LINK, "https://blog.boot.dev"),
+                TextNode("another link", TextType.LINK, "https://blog.google.com"),
                 TextNode(" with text that follows", TextType.TEXT),
             ],
             new_nodes,
@@ -173,7 +173,7 @@ class TestInlineMarkdown(unittest.TestCase):
 
     def test_text_to_textnodes(self):
         nodes = text_to_textnodes(
-            "This is **text** with an *italic* word and a `code block` and an ![image](https://i.imgur.com/zjjcJKZ.png) and a [link](https://boot.dev)"
+            "This is **text** with an *italic* word and a `code block` and an ![image](https://i.imgur.com/zjjcJKZ.png) and a [link](https://google.com)"
         )
         self.assertListEqual(
             [
@@ -186,7 +186,7 @@ class TestInlineMarkdown(unittest.TestCase):
                 TextNode(" and an ", TextType.TEXT),
                 TextNode("image", TextType.IMAGE, "https://i.imgur.com/zjjcJKZ.png"),
                 TextNode(" and a ", TextType.TEXT),
-                TextNode("link", TextType.LINK, "https://boot.dev"),
+                TextNode("link", TextType.LINK, "https://google.com"),
             ],
             nodes,
         )
