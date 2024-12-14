@@ -1,15 +1,6 @@
 import re
 
-from textnode import TextType, TextNode
-
-def text_to_textnodes(text):
-    nodes = [TextNode(text, TextType.TEXT)]
-    nodes = split_nodes_delimiter(nodes, "**", TextType.BOLD)
-    nodes = split_nodes_delimiter(nodes, "*", TextType.ITALIC)
-    nodes = split_nodes_delimiter(nodes, "`", TextType.CODE)
-    nodes = split_nodes_image(nodes)
-    nodes = split_nodes_link(nodes)
-    return nodes
+from textnode import TextType, TextNode, text_node_to_html_node
 
 def split_nodes_delimiter(old_nodes: list, delimiter: str, text_type: enumerate) -> list:
     '''Return a list of new nodes, where any text type nodes in the input list are split into multiple node based on the syntax.'''
@@ -101,3 +92,23 @@ def split_nodes_link(old_nodes: list) -> list:
         if original_text != "":
             new_nodes.append(TextNode(original_text, TextType.TEXT))
     return new_nodes
+
+def text_to_textnodes(text: str) -> list:
+    nodes = [TextNode(text, TextType.TEXT)]
+    nodes = split_nodes_delimiter(nodes, "**", TextType.BOLD)
+    nodes = split_nodes_delimiter(nodes, "*", TextType.ITALIC)
+    nodes = split_nodes_delimiter(nodes, "`", TextType.CODE)
+    nodes = split_nodes_image(nodes)
+    nodes = split_nodes_link(nodes)
+    return nodes
+
+def text_to_children(text: str) -> list:
+    '''Takes a string of text and return a list of HTMLNodes that represent the inline markdown.'''
+    text_nodes = text_to_textnodes(text)
+    children = []
+
+    for text_node in text_nodes:
+        html_node = text_node_to_html_node(text_node)
+        children.append(html_node)
+    
+    return children
