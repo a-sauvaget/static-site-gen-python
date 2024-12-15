@@ -1,10 +1,9 @@
 # Générateur de site statique - Python
 
-## Démarrer un serveur Web avec Python
+## Démarrer la génération du site et le serveur web
 
 ```bash
-cd public
-python3 -m http.server 8888
+./main.sh
 ```
 
 ## Rendre *.sh exécutable
