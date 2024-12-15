@@ -1,12 +1,11 @@
-from utils import delete_old_public, copy_static_to_public, extract_title
+from utils import delete_old_public, copy_static_to_public, generate_pages_recursive
 
 def main():
     print("Deleting public directory...")
     delete_old_public("public")
     print("Copying static files to public directory...")
     copy_static_to_public("static", "public")
-    extract_title("content/index.md")
-
+    generate_pages_recursive("content", "template.html", "public")
 
 if __name__ == "__main__":
     main()
